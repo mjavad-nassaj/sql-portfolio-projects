@@ -1,0 +1,1 @@
+client_id,customer_id,employee_id,office_id,client_name,city,state,manager_name,office_city,office_state,loyalty_level,payment_risk,collection_priority,total_sales,avg_order_value,total_invoice_amount,total_paid_amount,total_outstanding_balance,total_orders,total_invoices,overdue_invoices,last_refresh

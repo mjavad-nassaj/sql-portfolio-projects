@@ -1,0 +1,4 @@
+alert_id,client_id,client_name,employee_id,manager_name,payment_risk,collection_priority,total_outstanding_balance,overdue_invoices,alert_status,queued_at
+1,1,"Babara MacCaffrey",67009,"North de Clerc",Critical,Urgent,728.34,4,Open,"2026-04-02 23:36:59"
+2,2,"Ines Brushfield",67009,"North de Clerc",Critical,Urgent,101.79,1,Open,"2026-04-02 23:36:59"
+3,5,"Clemmie Betchley",98374,"Estrellita Daleman",Critical,Urgent,841.63,3,Open,"2026-04-02 23:36:59"

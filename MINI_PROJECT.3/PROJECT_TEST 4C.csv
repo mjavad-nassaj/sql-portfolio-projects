@@ -1,0 +1,8 @@
+state,payment_risk,number_of_clients,total_sales,total_outstanding_balance
+MA,Critical,1,1.00,728.34
+MA,NULL,1,1.00,728.34
+TX,Critical,1,60.73,841.63
+TX,NULL,1,60.73,841.63
+VA,Critical,1,157.92,101.79
+VA,NULL,1,157.92,101.79
+NULL,NULL,3,219.65,1671.76

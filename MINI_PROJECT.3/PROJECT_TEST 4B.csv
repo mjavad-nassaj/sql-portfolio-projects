@@ -1,0 +1,2 @@
+client_id,client_name,employee_id,manager_name,overdue_invoices,payment_risk,collection_priority
+1,"Babara MacCaffrey",67009,"North de Clerc",4,Critical,Urgent

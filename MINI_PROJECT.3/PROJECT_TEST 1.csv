@@ -1,0 +1,4 @@
+client_id,customer_id,employee_id,office_id,client_name,city,state,manager_name,office_city,office_state,loyalty_level,payment_risk,collection_priority,total_sales,avg_order_value,total_invoice_amount,total_paid_amount,total_outstanding_balance,total_orders,total_invoices,overdue_invoices,last_refresh
+1,1,67009,2,"Babara MacCaffrey",Waltham,MA,"North de Clerc","New York City",NY,Bronze,Critical,Urgent,1.00,1.00,802.89,74.55,728.34,1,5,4,"2026-04-02 23:33:29"
+2,2,67009,2,"Ines Brushfield",Hampton,VA,"North de Clerc","New York City",NY,Silver,Critical,Urgent,157.92,78.96,101.79,0.00,101.79,2,1,1,"2026-04-02 23:33:29"
+5,5,98374,5,"Clemmie Betchley",Arlington,TX,"Estrellita Daleman",Minneapolis,MN,Bronze,Critical,Urgent,60.73,30.37,980.02,138.39,841.63,2,6,3,"2026-04-02 23:33:29"

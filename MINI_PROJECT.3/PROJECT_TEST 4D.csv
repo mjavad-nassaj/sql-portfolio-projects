@@ -1,0 +1,10 @@
+office_id,office_city,employee_id,manager_name,number_of_clients,total_outstanding_balance,high_risk_clients
+2,"New York City",67009,"North de Clerc",2,830.13,0
+2,"New York City",67009,NULL,2,830.13,0
+2,"New York City",NULL,NULL,2,830.13,0
+2,NULL,NULL,NULL,2,830.13,0
+5,Minneapolis,98374,"Estrellita Daleman",1,841.63,0
+5,Minneapolis,98374,NULL,1,841.63,0
+5,Minneapolis,NULL,NULL,1,841.63,0
+5,NULL,NULL,NULL,1,841.63,0
+NULL,NULL,NULL,NULL,3,1671.76,0
