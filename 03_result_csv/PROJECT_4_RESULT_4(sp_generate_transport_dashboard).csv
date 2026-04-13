@@ -1,0 +1,5 @@
+service_stability_level,total_services,total_active_days_per_weeks,total_exception_count
+Limited,938,1485,5681
+Stable,95,631,488
+Unstable,2042,3631,79857
+NULL,3075,5747,86026
