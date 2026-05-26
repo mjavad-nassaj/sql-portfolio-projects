@@ -1,116 +1,102 @@
 # Rossmann Retail Sales Intelligence & Performance Management Platform
 
-A SQL-first analytics project built on the Rossmann Store Sales dataset to analyse store performance, promotion impact, temporal behaviour, peer-group differences, and management-level KPIs.
+## English Version
 
-This project is intentionally positioned as an **analytical database project**, not as a production OLTP system or a machine-learning project. The goal is to show practical SQL problem solving, business thinking, and structured database design in a way that is realistic, defensible, and useful for Data Analyst / Business Intelligence / SQL-heavy roles.
+### Project Overview
+This is a SQL-first analytics project built on the Rossmann Store Sales dataset. The project transforms raw store-level sales data into a structured analytical layer for KPI reporting, promotion analysis, store benchmarking, summary tables, reusable database objects, and management-style dashboard outputs.
+
+The project is intentionally positioned as an analytical SQL portfolio project rather than a production OLTP system or a machine learning project. The main goal is to demonstrate practical SQL problem solving, business thinking, structured database design, and interview-defensible analytical work.
 
 ---
 
-## 1. Project objective
+### Project Objective
+The project addresses the following business question:
 
-The project answers a simple but important business question:
+> How can raw retail sales data be transformed into a reusable analytical layer that supports reporting, benchmarking, promotion analysis, and management-level performance monitoring?
 
-> How can raw store-level sales data be transformed into a structured analytical layer that supports KPI reporting, performance benchmarking, promotion analysis, and management dashboards?
-
-To answer that, the project builds a small but complete SQL analytics workflow:
-
-- source data understanding and validation
-- enriched analytical views
+To answer this, the project includes:
+- data understanding and validation
+- enrichment through analytical views
 - time-feature extraction and business flags
-- store/store-type/assortment analysis
+- store, store type, and assortment analysis
 - promotion and holiday analysis
 - ranking and efficiency analysis
 - peer-group benchmarking with correlated subqueries
-- summary tables for faster downstream analysis
-- reusable functions and refresh procedures
-- executive dashboard outputs
-- audit logging with update/delete triggers
+- summary tables for lighter downstream queries
+- reusable SQL functions and procedures
+- executive dashboard queries
+- audit logging with update and delete triggers
 
 ---
 
-## 2. Dataset
+### Dataset
+The project uses the Rossmann Store Sales data included in the repository.
 
-The project uses the Rossmann Store Sales data included in the repository under `database_source/`.
-
-### Core source tables
-
+#### Core source tables
 - `train`
 - `store`
 
-### Raw source files included
-
+#### Source files included
 - `train.csv`
 - `store.csv`
 - `test.csv`
 - `sample_submission.csv`
-- SQL dump / zipped source exports
+- SQL dump / source export files
 
-The main analytical work in this project is based on the `train` and `store` tables.
+The main analytical work is based on the `train` and `store` tables.
 
 ---
 
-## 3. Scope of the project
+### Scope
+This repository focuses on descriptive and diagnostic analytics in SQL.
 
-This repository focuses on **descriptive and diagnostic analytics in SQL**.
-
-It does **not** try to claim the following:
-
+It does not try to claim:
 - real-time production data engineering
 - machine learning forecasting
-- enterprise-grade transaction orchestration
-- highly normalised dimensional modelling with many dimension tables
+- enterprise-scale transactional orchestration
+- a fully normalised dimensional warehouse design
 
-Instead, it aims to do a smaller set of things **well and clearly**:
-
+Instead, it aims to do a smaller set of things clearly and well:
 - build a clean analytical layer
 - answer meaningful business questions
-- use advanced SQL features where they add value
-- keep the final solution runnable and explainable in an interview
+- use advanced SQL where it adds value
+- remain readable, runnable, and defensible in an interview
 
 ---
 
-## 4. Project architecture
-
-### Source layer
-
+### Project Architecture
+#### Source layer
 - `train`
 - `store`
 
-### Analytical views
-
+#### Analytical views
 1. `train_store_enriched_view`
 2. `store_total_sales_summary_view`
 3. `store_total_sales_by_assortment_summary_view`
 
-### Summary tables
-
+#### Summary tables
 1. `store_daily_summary`
 2. `store_monthly_summary`
 3. `promo_effectiveness_summary`
 
-### Functions
-
+#### Functions
 1. `sales_band_function`
 2. `promo_effectiveness_band_function`
 
-### Procedures
-
+#### Procedures
 1. `refresh_store_daily_summary`
 2. `refresh_store_monthly_summary`
 3. `executive_dashboard_summary_procedure`
 
-### Audit layer
-
+#### Audit layer
 - `audit_table`
 - update trigger on `store_monthly_summary`
 - delete trigger on `store_monthly_summary`
 
 ---
 
-## 5. Main business questions answered
-
+### Main Business Questions Answered
 The project is organised around questions such as:
-
 - What is the overall sales and customer picture of the business?
 - Which stores perform best and worst?
 - How do store type and assortment affect performance?
@@ -124,14 +110,9 @@ The project is organised around questions such as:
 
 ---
 
-## 6. Implemented SQL work
-
-### 6.1 Data audit and validation
-
-The project starts with foundational checks rather than jumping directly into dashboards.
-
+### Implemented SQL Work
+#### 1. Data audit and validation
 Implemented checks include:
-
 - structural audit of core tables
 - business meaning audit of important columns
 - missing-value analysis
@@ -139,29 +120,16 @@ Implemented checks include:
 - grain and uniqueness validation
 - join-foundation validation
 
-This matters because later KPIs and summary tables are only meaningful if the data grain is correctly understood.
-
----
-
-### 6.2 Enrichment layer
-
+#### 2. Enrichment layer
 A reusable enriched analytical view was built:
-
 - `train_store_enriched_view`
 
-This view combines sales-day information from `train` with structural store attributes from `store`, creating a reusable base for most later analysis.
-
 Additional enrichment work includes:
-
-- year / month / quarter / week-number extraction
+- year, month, quarter, and week-number extraction
 - business flags for open day, promo day, holiday status, competition info, and promo2
 
----
-
-### 6.3 Core business analysis
-
-The repository includes SQL analyses for:
-
+#### 3. Core business analysis
+Implemented analyses include:
 - overall sales analysis
 - sales by store
 - sales by store type
@@ -172,280 +140,385 @@ The repository includes SQL analyses for:
 - weekday performance analysis
 - monthly trend analysis
 
-These are not just technical exercises; they are the bridge between raw data and actual business interpretation.
-
----
-
-### 6.4 Ranking, efficiency, and benchmarking
-
-The project also goes beyond simple aggregation.
-
-Implemented advanced analytical logic includes:
-
+#### 4. Ranking, efficiency, and benchmarking
+Implemented advanced logic includes:
 - store ranking with window functions
 - sales-per-customer efficiency analysis
 - promo effectiveness by store
-- competition impact analysis via competition-distance bands
+- competition impact analysis using competition-distance bands
 - peer comparison by store type
 - peer comparison by assortment
 - underperforming store detection
 
-A notable design choice is the use of **correlated subqueries** for peer-group benchmarking. This was included intentionally to practice and demonstrate SQL logic beyond basic joins and groupings.
+A notable design choice is the use of correlated subqueries for peer-group benchmarking.
+
+#### 5. Summary tables
+- `store_daily_summary` at `store + date` grain
+- `store_monthly_summary` at `store + year + month` grain
+- `promo_effectiveness_summary` at store grain
+
+#### 6. Functions
+- `sales_band_function`
+- `promo_effectiveness_band_function`
+
+#### 7. Procedures
+- `refresh_store_daily_summary`
+- `refresh_store_monthly_summary`
+- `executive_dashboard_summary_procedure`
+
+#### 8. Audit and triggers
+- `audit_table`
+- update trigger
+- delete trigger
 
 ---
 
-### 6.5 Summary tables
-
-To avoid repeatedly aggregating large raw daily data, the project builds reusable summary tables:
-
-#### `store_daily_summary`
-Daily analytical base at `store + date` grain.
-
-#### `store_monthly_summary`
-Monthly analytical base at `store + year + month` grain.
-
-#### `promo_effectiveness_summary`
-Store-level summary comparing promo vs non-promo performance.
-
-This design makes later procedures, dashboard queries, and audit logic cleaner and more practical.
-
----
-
-### 6.6 Functions
-
-Two reusable SQL functions were implemented:
-
-#### `sales_band_function`
-Classifies a sales value into:
-- `low`
-- `medium`
-- `high`
-- `top`
-
-#### `promo_effectiveness_band_function`
-Classifies promo effect into:
-- `weak`
-- `moderate`
-- `strong`
-
-These functions keep repeated business logic out of large dashboard queries.
-
----
-
-### 6.7 Procedures
-
-Three stored procedures were built:
-
-#### `refresh_store_daily_summary`
-Refreshes the daily summary table.
-
-#### `refresh_store_monthly_summary`
-Refreshes the monthly summary table from the daily summary layer.
-
-#### `executive_dashboard_summary_procedure`
-Returns executive-level KPI outputs including:
-- overall KPIs
-- best month
-- worst month
-- best store
-- weakest store
-
----
-
-### 6.8 Audit and triggers
-
-To move the project beyond pure reporting, an audit layer was added.
-
-#### `audit_table`
-Stores change logs for selected operations.
-
-#### Triggers
-Two triggers on `store_monthly_summary` write audit entries for:
-- `UPDATE`
-- `DELETE`
-
-This is intentionally lightweight, but it shows that the project also addresses basic traceability and change logging.
-
----
-
-## 7. Key technical SQL concepts demonstrated
-
-This project uses a broad range of SQL techniques, including:
-
-- joins
-- grouped aggregation
-- CASE-based feature engineering
-- missing-value diagnostics
-- grain validation
-- window functions (`RANK()`)
-- scalar subqueries
-- correlated subqueries
-- derived tables / helper views
-- summary-table design
-- user-defined functions
-- stored procedures
-- triggers
-- audit logging
-
-This combination is one of the main strengths of the repository.
-
----
-
-## 8. Selected findings
-
-The detailed bilingual insight file is stored separately in:
-
+### Selected Findings
+Detailed bilingual insights are stored separately in:
 - `task_35_final_business_insights/task_35_final_business_insights.md`
 
-A few high-level findings are:
-
+High-level findings include:
 - promotions were a major sales driver
 - the business showed clear monthly seasonality
 - weekday performance was uneven and operationally relevant
 - store performance dispersion was large across the network
 - high total sales did not always imply high customer-value efficiency
-- peer-group benchmarking added more decision value than raw ranking alone
-
-This helps show that the project is not only about SQL syntax, but also about business interpretation.
+- peer-group benchmarking added more managerial value than raw ranking alone
 
 ---
 
-## 9. Representative repository structure
-
+### Repository Structure
 ```text
-database_source/
-├── rossmann_sales_mysql_full.sql
-├── rossmann_sales_mysql_full.zip
-├── rossmann-store-sales.zip
-├── train.csv
-├── store.csv
-├── test.csv
-└── sample_submission.csv
-
-sql_scripts/
-├── 01_structural_audit_core_tables.sql
-├── 02_business_meaning_audit_core_columns.sql
-├── 03_missing_value_and_data_completeness_audit_store.sql
-├── 04_business_rule_consistency_audit_train.sql
-├── 05_grain_uniqueness_join_foundation.sql
-├── 06_build_main_project_view.sql
-├── 07_extract_time_features.sql
-├── 08_build_business_flags.sql
-├── 09_overall_sales_analysis.sql
-├── 10_sales_analysis_by_store.sql
-├── 11_sales_analysis_by_store_type.sql
-├── 12_sales_analysis_by_assortment.sql
-├── 13_promo_effect_analysis.sql
-├── 14_state_holiday_effect_analysis.sql
-├── 15_school_holiday_effect_analysis.sql
-├── 16_weekday_performance_analysis.sql
-├── 17_monthly_sales_customer_trend_analysis.sql
-├── 18_store_ranking_analysis.sql
-├── 19_sales_per_customer_efficiency_analysis.sql
-├── 20_promo_effectiveness_analysis_by_store.sql
-├── 21_competition_impact_analysis.sql
-├── 22_helper_store_total_sales_summary_view.sql
-├── 22_peer_comparison_by_store_type.sql
-├── 23_helper_store_total_sales_by_assortment_view.sql
-├── 23_peer_comparison_by_assortment.sql
-├── 24_underperforming_store_detection.sql
-├── 25_build_store_daily_summary_table.sql
-├── 26_build_store_monthly_summary_table.sql
-├── 27_build_promo_effectiveness_summary_table.sql
-├── 28_build_sales_band_function.sql
-├── 29_build_promo_effectiveness_band_function.sql
-├── 30_build_refresh_store_daily_summary_procedure.sql
-├── 31_build_refresh_store_monthly_summary_procedure.sql
-├── 32_build_executive_dashboard_summary_procedure.sql
-├── 33_build_executive_dashboard_query.sql
-├── 34_build_store_performance_dashboard.sql
-├── 36_build_audit_table_for_change_logging.sql
-└── 37_build_update_and_delete_triggers.sql
-
-task_35_final_business_insights/
-└── task_35_final_business_insights.md
-
-tset_tables/
-└── PROJECT_5_TEST(18_store_ranking_analysis).csv
+rossmann-retail-sales-intelligence-platform/
+├── database_source/
+├── sql_scripts/
+├── task_35_final_business_insights/
+├── test_tables/
+└── README.md
 ```
 
-The main implementation files are kept under `sql_scripts/`, while the bilingual interpretation file is stored separately under `task_35_final_business_insights/`.
+The main implementation files are kept under `sql_scripts/`, while the interpretation file is stored separately under `task_35_final_business_insights/`.
 
 ---
 
-## 10. How to run the project
-
-### Recommended execution order
-
-1. Load the Rossmann database from the source SQL / raw source files.
+### Recommended Execution Order
+1. Load the Rossmann database from the source SQL / raw files.
 2. Run the numbered SQL files in order.
-3. Create the enriched view and helper views.
+3. Create the enriched and helper views.
 4. Build the summary tables.
 5. Create the functions.
 6. Create the procedures.
 7. Create the audit table and triggers.
-8. Run the executive dashboard query and store performance dashboard queries.
-
-### Practical note
-
-For reproducibility, the project is structured so that later objects depend on earlier ones. The summary-table layer is especially important because it makes later procedures and dashboard queries lighter and easier to explain.
+8. Run the executive dashboard and store dashboard queries.
 
 ---
 
-## 11. Design decisions worth explaining in an interview
+### Design Decisions Worth Explaining in an Interview
+#### Why build summary tables?
+Because repeated aggregation on raw daily data makes later logic heavier, harder to read, and less reusable.
 
-### Why build summary tables instead of querying raw daily data every time?
-Because repeated aggregation on raw data makes later logic heavier, harder to read, and less reusable. Summary tables also make procedures and dashboards cleaner.
+#### Why use helper views before correlated subqueries?
+Because direct correlated logic on the enriched daily view was logically correct but unnecessarily heavy. Helper views reduced query weight while preserving benchmarking logic.
 
-### Why use helper views before correlated subqueries?
-Because correlated subqueries directly on the full enriched daily view were logically correct but unnecessarily heavy. Helper views reduced complexity while keeping the benchmarking logic intact.
+#### Why include triggers in an analytics project?
+Not to claim a full production logging system, but to demonstrate basic change tracking and database-side automation.
 
-### Why include triggers in an analytics project?
-Not to pretend this is a full production logging system, but to show awareness of change tracking and database-side automation.
-
-### Why keep the project SQL-first?
-Because the main purpose of this repository is to demonstrate analytical SQL design, structured reasoning, and business-oriented querying rather than forecasting or modelling.
+#### Why keep the project SQL-first?
+Because the main purpose of the repository is to demonstrate analytical SQL design, business-oriented querying, and structured reasoning.
 
 ---
 
-## 12. Limitations
-
-To keep the project realistic and defensible, it is important to state its limits clearly.
-
+### Limitations
+To keep the project realistic and defensible, several limits should be stated clearly:
 - This is not a predictive modelling project.
 - Promotion-effect measurement here is descriptive, not causal inference.
 - Competition impact is analysed through grouped business bands, not formal econometric modelling.
 - The audit layer is deliberately lightweight.
-- The project prioritises clarity and explanation over highly compressed “clever” SQL.
-
-These limitations are not weaknesses to hide; they are part of keeping the project honest and interview-safe.
+- The project prioritises clarity and explainability over highly compressed SQL.
 
 ---
 
-## 13. Future improvements
-
-Reasonable next steps for a future version would be:
-
-- add a second promo-effect function using average promo uplift
-- build a dedicated date dimension
-- add parameterised dashboard procedures
-- extend audit logging to more fields than total sales
-- add visual dashboards in Power BI or Tableau on top of the SQL layer
-- pair the SQL layer with a Pandas validation notebook
+### Future Improvements
+Possible future extensions include:
+- a second promo-effect function based on average promo uplift
+- a dedicated date dimension
+- parameterised dashboard procedures
+- broader audit logging beyond total sales
+- a Power BI or Tableau layer on top of the SQL layer
+- a Pandas validation notebook connected to the SQL outputs
 
 ---
 
-## 14. Final project assessment
-
-This project is strong because it combines:
-
+### Final Assessment
+This project combines:
 - sound SQL fundamentals
 - intermediate-to-advanced querying
 - business-focused analysis
 - reusable analytical objects
 - modest but meaningful database automation
 
-It does **not** claim to be more than it is.
-That is intentional.
+It does not claim to be more than it is. That is intentional.
 
-The repository is best described as a **well-structured SQL analytics portfolio project** with enough depth to be discussed seriously in interviews, while still remaining practical, readable, and defensible.
+The repository is best described as a well-structured SQL analytics portfolio project with enough depth to be discussed seriously in interviews while remaining practical, readable, and defensible.
+
+
+## Deutsche Version
+
+### Projektüberblick
+Dies ist ein SQL-orientiertes Analyseprojekt auf Basis des Rossmann Store Sales Datensatzes. Das Projekt transformiert Rohdaten auf Filialebene in eine strukturierte analytische Ebene für KPI-Reporting, Promotionsanalyse, Filial-Benchmarking, Summary Tables, wiederverwendbare Datenbankobjekte und managementorientierte Dashboard-Ausgaben.
+
+Das Projekt ist bewusst als analytisches SQL-Portfolio-Projekt positioniert und nicht als produktives OLTP-System oder Machine-Learning-Projekt. Das Hauptziel besteht darin, praktische SQL-Problemlösung, betriebswirtschaftliches Denken, strukturierte Datenbankgestaltung und im Bewerbungsgespräch gut verteidigbare Analysearbeit zu zeigen.
+
+---
+
+### Projektziel
+Das Projekt behandelt die folgende betriebswirtschaftliche Fragestellung:
+
+> Wie können rohe Retail-Sales-Daten in eine wiederverwendbare analytische Ebene überführt werden, die Reporting, Benchmarking, Promotionsanalyse und Management-Monitoring unterstützt?
+
+Dafür umfasst das Projekt:
+- Datenverständnis und Validierung
+- Anreicherung durch analytische Views
+- Extraktion von Zeitmerkmalen und Business Flags
+- Analysen nach Filiale, Filialtyp und Sortiment
+- Promotions- und Feiertagsanalysen
+- Ranking- und Effizienzanalysen
+- Peer-Group-Benchmarking mit correlated subqueries
+- Summary Tables für leichtere Folgeabfragen
+- wiederverwendbare SQL-Funktionen und Procedures
+- Executive-Dashboard-Abfragen
+- Audit-Logging mit Update- und Delete-Triggern
+
+---
+
+### Datensatz
+Das Projekt verwendet die im Repository enthaltenen Rossmann-Store-Sales-Daten.
+
+#### Zentrale Quelltabellen
+- `train`
+- `store`
+
+#### Enthaltene Quelldateien
+- `train.csv`
+- `store.csv`
+- `test.csv`
+- `sample_submission.csv`
+- SQL-Dump- bzw. Exportdateien
+
+Die zentrale analytische Arbeit basiert auf den Tabellen `train` und `store`.
+
+---
+
+### Projektumfang
+Dieses Repository konzentriert sich auf deskriptive und diagnostische Analytik in SQL.
+
+Es behauptet ausdrücklich nicht:
+- produktionsreifes Echtzeit-Data-Engineering
+- Machine-Learning-Forecasting
+- Enterprise-Transaktionsorchestrierung im großen Stil
+- ein vollständig normalisiertes dimensionales Warehouse-Design
+
+Stattdessen versucht es, eine kleinere Menge von Dingen klar und sauber umzusetzen:
+- Aufbau einer sauberen analytischen Ebene
+- Beantwortung sinnvoller Business-Fragen
+- Einsatz fortgeschrittener SQL-Techniken dort, wo sie Mehrwert bringen
+- gute Lesbarkeit, Ausführbarkeit und Verteidigbarkeit im Interview
+
+---
+
+### Projektarchitektur
+#### Source Layer
+- `train`
+- `store`
+
+#### Analytische Views
+1. `train_store_enriched_view`
+2. `store_total_sales_summary_view`
+3. `store_total_sales_by_assortment_summary_view`
+
+#### Summary Tables
+1. `store_daily_summary`
+2. `store_monthly_summary`
+3. `promo_effectiveness_summary`
+
+#### Funktionen
+1. `sales_band_function`
+2. `promo_effectiveness_band_function`
+
+#### Procedures
+1. `refresh_store_daily_summary`
+2. `refresh_store_monthly_summary`
+3. `executive_dashboard_summary_procedure`
+
+#### Audit Layer
+- `audit_table`
+- Update-Trigger auf `store_monthly_summary`
+- Delete-Trigger auf `store_monthly_summary`
+
+---
+
+### Zentrale Business-Fragen
+Das Projekt ist um folgende Fragen herum aufgebaut:
+- Wie sieht das gesamte Verkaufs- und Kundenbild des Unternehmens aus?
+- Welche Filialen performen am besten und am schwächsten?
+- Wie beeinflussen Filialtyp und Sortiment die Performance?
+- Sind Promotionen ein relevanter Umsatztreiber?
+- Wie wirken sich staatliche Feiertage und Schulferien auf den Umsatz aus?
+- Gibt es deutliche Muster nach Wochentagen und Monaten?
+- Welche Filialen sind beim Umsatz pro Kunde besonders effizient?
+- Spielt die Distanz zum Wettbewerber offenbar eine Rolle?
+- Welche Filialen liegen über oder unter dem Durchschnitt ihrer Peer Group?
+- Welche Filialen unterperformen relativ zu ihrer strukturellen Vergleichsgruppe?
+
+---
+
+### Umgesetzte SQL-Arbeit
+#### 1. Datenprüfung und Validierung
+Umgesetzt wurden unter anderem:
+- strukturelle Prüfung der Kern-Tabellen
+- fachliche Prüfung wichtiger Spalten
+- Missing-Value-Analyse
+- Konsistenzprüfung von Business-Regeln
+- Prüfung von Grain und Eindeutigkeit
+- Validierung der Join-Grundlage
+
+#### 2. Enrichment Layer
+Es wurde eine wiederverwendbare analytische View aufgebaut:
+- `train_store_enriched_view`
+
+Weitere Anreicherungsschritte umfassen:
+- Extraktion von Jahr, Monat, Quartal und Wochennummer
+- Business Flags für Öffnungstag, Promo-Tag, Feiertagsstatus, Wettbewerbsinfo und Promo2
+
+#### 3. Zentrale Business-Analysen
+Umgesetzte Analysen umfassen:
+- Gesamtumsatzanalyse
+- Analyse nach Filiale
+- Analyse nach Store Type
+- Analyse nach Sortiment
+- Promotionsanalyse
+- Analyse staatlicher Feiertage
+- Analyse von Schulferien
+- Wochentagsanalyse
+- monatliche Trendanalyse
+
+#### 4. Ranking, Effizienz und Benchmarking
+Fortgeschrittene analytische Logik umfasst:
+- Filial-Ranking mit Window Functions
+- Effizienzanalyse Umsatz pro Kunde
+- Promo-Wirksamkeit pro Filiale
+- Analyse des Wettbewerbseinflusses über Distanz-Bänder
+- Peer-Vergleich nach Store Type
+- Peer-Vergleich nach Sortiment
+- Erkennung von unterdurchschnittlich performenden Filialen
+
+Eine wichtige Designentscheidung war der bewusste Einsatz von correlated subqueries für Peer-Group-Benchmarking.
+
+#### 5. Summary Tables
+- `store_daily_summary` auf dem Grain `store + date`
+- `store_monthly_summary` auf dem Grain `store + year + month`
+- `promo_effectiveness_summary` auf Filialebene
+
+#### 6. Funktionen
+- `sales_band_function`
+- `promo_effectiveness_band_function`
+
+#### 7. Procedures
+- `refresh_store_daily_summary`
+- `refresh_store_monthly_summary`
+- `executive_dashboard_summary_procedure`
+
+#### 8. Audit und Trigger
+- `audit_table`
+- Update-Trigger
+- Delete-Trigger
+
+---
+
+### Ausgewählte Erkenntnisse
+Die ausführlichen zweisprachigen Insights liegen separat in:
+- `task_35_final_business_insights/task_35_final_business_insights.md`
+
+Wichtige Erkenntnisse sind unter anderem:
+- Promotionen waren ein wesentlicher Umsatztreiber
+- das Geschäft zeigte eine deutliche monatliche Saisonalität
+- die Performance nach Wochentagen war ungleich verteilt und operativ relevant
+- die Leistungsunterschiede zwischen Filialen waren groß
+- hoher Gesamtumsatz bedeutete nicht automatisch hohe Effizienz pro Kunde
+- Peer-Group-Benchmarking lieferte mehr Management-Nutzen als reines Roh-Ranking
+
+---
+
+### Repository-Struktur
+```text
+rossmann-retail-sales-intelligence-platform/
+├── database_source/
+├── sql_scripts/
+├── task_35_final_business_insights/
+├── test_tables/
+└── README.md
+```
+
+Die zentralen Implementierungsdateien liegen unter `sql_scripts/`, während die Interpretation separat unter `task_35_final_business_insights/` gespeichert ist.
+
+---
+
+### Empfohlene Ausführungsreihenfolge
+1. Rossmann-Datenbank aus den SQL- bzw. Rohdateien laden.
+2. Die nummerierten SQL-Dateien der Reihe nach ausführen.
+3. Die Enrichment- und Helper-Views erstellen.
+4. Die Summary Tables aufbauen.
+5. Die Funktionen erstellen.
+6. Die Procedures erstellen.
+7. Audit Table und Trigger anlegen.
+8. Executive-Dashboard- und Store-Dashboard-Abfragen ausführen.
+
+---
+
+### Designentscheidungen, die man im Interview erklären kann
+#### Warum Summary Tables statt ständig auf Rohdaten zu aggregieren?
+Weil wiederholte Aggregation auf Rohdaten spätere Logik schwerer, unübersichtlicher und schlechter wiederverwendbar macht.
+
+#### Warum Helper Views vor correlated subqueries?
+Weil direkte correlated subqueries auf der angereicherten Tages-View logisch korrekt, aber unnötig schwer waren. Helper Views reduzierten die Last und behielten die Benchmarking-Logik bei.
+
+#### Warum Trigger in einem Analyseprojekt?
+Nicht um ein vollständiges produktives Logging-System zu behaupten, sondern um grundlegendes Change Tracking und Datenbank-Automatisierung zu demonstrieren.
+
+#### Warum SQL-first?
+Weil der Hauptzweck des Repositories darin besteht, analytisches SQL-Design, business-orientierte Abfragen und strukturiertes Denken zu zeigen.
+
+---
+
+### Grenzen des Projekts
+Damit das Projekt realistisch und gut verteidigbar bleibt, sollten seine Grenzen klar benannt werden:
+- Es ist kein Predictive-Modelling-Projekt.
+- Die Promotionsmessung ist hier deskriptiv, nicht kausal.
+- Wettbewerbseinfluss wird über gruppierte Business-Bänder analysiert, nicht über formale ökonometrische Modelle.
+- Die Audit-Ebene ist bewusst leichtgewichtig gehalten.
+- Das Projekt priorisiert Klarheit und Erklärbarkeit vor stark komprimiertem SQL.
+
+---
+
+### Mögliche Weiterentwicklungen
+Sinnvolle nächste Schritte wären:
+- eine zweite Promo-Funktion auf Basis durchschnittlicher Promo-Uplifts
+- eine eigene Date Dimension
+- parametrisierte Dashboard-Procedures
+- breiteres Audit-Logging über Total Sales hinaus
+- eine Power-BI- oder Tableau-Schicht auf Basis der SQL-Ebene
+- ein Pandas-Validierungsnotebook auf Basis der SQL-Outputs
+
+---
+
+### Abschließende Bewertung
+Dieses Projekt kombiniert:
+- solide SQL-Grundlagen
+- Queries auf mittlerem bis fortgeschrittenem Niveau
+- business-orientierte Analyse
+- wiederverwendbare analytische Objekte
+- kleine, aber sinnvolle Datenbank-Automatisierung
+
+Es behauptet nicht, mehr zu sein, als es ist. Das ist bewusst so gewählt.
+
+Am besten lässt sich das Repository als gut strukturiertes SQL-Analytics-Portfolio-Projekt beschreiben, das genügend Tiefe für ernsthafte Interviewgespräche bietet und dabei praktisch, lesbar und verteidigbar bleibt.
